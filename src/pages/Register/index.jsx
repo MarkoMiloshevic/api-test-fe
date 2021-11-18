@@ -9,65 +9,65 @@ import { connect } from "react-redux";
 import { compose, bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 
-const Register = ({ register, registerRes }) => {
-  const [registerData, setRegisterData] = useState({
-    username: null,
-    email: null,
-    password: null,
-  });
+import { useForm } from 'react-hook-form';
 
-  const registerButton = (data) => {
-    if (data.email && data.username && data.password) {
-      console.log("sada");
-    } else {
-      register(data);
-    }
-  };
+const Register = ({ registerSend, registerRes }) => {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
 
-  console.log(registerData)
+
 
   return (
     <div className="register-wrapper">
-      <div className="input-wrappers">
+      <form className="input-wrappers">
         <div className="single-input">
+          <p>Enter your username</p>
           <input
-            className={`${registerData.username !== null && 'filled-input'}`}
+            className={watch('username') !== '' && 'filled-input'}
             type="text"
-            placeholder={"Username*"}
-            onChange={(e) => setRegisterData({...registerData, username: e.target.value })}
-            value={registerData.username}
+            placeholder={"Username"}
+            {...register('username', {required: true})}
           />
+          {errors.username?.type === 'required' && <p className="form-error">First name is required</p>}
         </div>
         <div className="single-input">
+          <p>Enter your email</p>
           <input
-            className={`${registerData.email !== null && 'filled-input'}`}
+            className={watch('email') !== '' && 'filled-input'}
             type="email"
-            placeholder={"Email*"}
-            onChange={(e) => setRegisterData({...registerData, email: e.target.value })}
-            value={registerData.email}
+            placeholder={"Email"}
+            {...register('email', {required: true})}
           />
         </div>
         <div className="single-input">
+          <p>Enter your password</p>
           <input
-            className={`${registerData.password !== null && 'filled-input'}`}
+            className={watch('password') !== '' && 'filled-input'}
             autoCorrect={false}
             type="password"
-            placeholder={"Password*"}
-            onChange={(e) => setRegisterData({...registerData, password: e.target.value })}
-            value={registerData.password}
+            placeholder={"Password"}
+            {...register('password', {required: true})}
           />
         </div>
+        <div className="single-input">
+          <p>Confirm your password</p>
+          <input
+            autoCorrect={false}
+            type="password"
+            placeholder={"Confirm password"}
+          />
+        </div> 
         <div className="error-field">
           <p>{registerRes.error && registerRes.error}</p>
         </div>
-      </div>
+      </form>
       <div className="button-wrapper">
         <Link className="main-button" to={"/"}>
           Go back
         </Link>
         <button
           className="main-button"
-          onClick={() => registerButton(registerData)}
+          onClick={handleSubmit(onSubmit)}
         >
           Register
         </button>
@@ -78,7 +78,7 @@ const Register = ({ register, registerRes }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  register: bindActionCreators(register, dispatch),
+  registerSend: bindActionCreators(register, dispatch),
 });
 
 const mapStateToProps = ({ register }) => {

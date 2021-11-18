@@ -8,8 +8,12 @@
     border: $brand-purple 2px solid;
     transition: all 0.3s;
     letter-spacing: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover {
         background-color: $brand-white;
         color: $brand-purple;
+        cursor: pointer;
     }
 }
