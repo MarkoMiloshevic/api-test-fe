@@ -1,3 +1,14 @@
+//general styles
 @import './vendor/normalize';
-@import './colors/colors';
+@import './variables/colors';
+@import './variables/fonts';
+@import './variables/buttons';
 
+
+//page imports
+@import './pages/welcomePage';
+@import './pages/registerPage';
+
+
+//component imports
+@import './components/miniFooter';

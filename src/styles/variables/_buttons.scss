@@ -1,0 +1,15 @@
+
+.main-button {
+    background-color: $brand-purple;
+    color: $brand-white;
+    padding: 10px 35px;
+    text-align: center;
+    text-decoration: none;
+    border: $brand-purple 2px solid;
+    transition: all 0.3s;
+    letter-spacing: 3px;
+    &:hover {
+        background-color: $brand-white;
+        color: $brand-purple;
+    }
+}
